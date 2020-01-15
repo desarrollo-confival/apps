@@ -1,0 +1,7 @@
+# my.cnf
+[client]
+local = 'loclahost'
+database = 'confival'
+user = 'root'
+password = ''
+default-character-set = utf8
