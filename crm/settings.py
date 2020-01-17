@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'municipio.apps.MunicipioConfig',
     'perfil.apps.PerfilConfig',
     'origen_contacto.apps.OrigenContactoConfig',
+    'tipo_documento.apps.TipoDocumentoConfig',
+    'clase_documento.apps.ClaseDocumentoConfig',
+    'perfil_asesor.apps.PerfilAsesorConfig',
+    'comision.apps.ComisionConfig',
+    'asesores.apps.AsesoresConfig',
 ]
 
 MIDDLEWARE = [

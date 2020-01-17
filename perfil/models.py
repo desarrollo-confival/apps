@@ -15,8 +15,8 @@ class Perfil(models.Model):
     class Meta:
         managed = False
         db_table = 'perfil'
-        verbose_name_plural = 'Perfiles'
-        verbose_name='Perfil'
+        verbose_name_plural = 'Perfiles de Clientes'
+        verbose_name='Perfil de Cliente'
 
     def __str__(self):
         return self.perfil

@@ -15,8 +15,8 @@ class OrigenContacto(models.Model):
     class Meta:
         managed = False
         db_table = 'origen_contacto'
-        verbose_name_plural='Origen Contacto'
-        verbose_name= 'Origen Contacto'
+        verbose_name_plural='Origen de Contactos'
+        verbose_name= 'Origen de Contacto'
 
     def __str__(self):
         return self.contacto

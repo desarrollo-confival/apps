@@ -25,11 +25,29 @@ urlpatterns = [
     #app municipio
     path('municipio/', include('municipio.urls')),
     
-    #app perfil
+    #app perfil cliente
     path('perfil/', include('perfil.urls')),
 
 
     #app origen contacto 
     path('contacto/', include('origen_contacto.urls')),
+
+    #app tipo de documento
+    path('tipo_documento/', include('tipo_documento.urls')),
+
+    #app clase de documento
+    path('clase_documento/', include('clase_documento.urls')),
+    
+    #app perfil de asesores
+    path('perfil_asesor/', include('perfil_asesor.urls')),
+
+    #app comision asesores
+    path('comision/', include('comision.urls')),
+
+    #app registro asesores
+    path('asesores/', include('asesores.urls')),
+
+    #app registro abogados
+    path('abogados/', include('abogados.urls')),
 
 ]
