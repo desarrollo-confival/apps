@@ -31,12 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # App django 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Apps
     'crm',
     'genero.apps.GeneroConfig',
     'municipio.apps.MunicipioConfig',
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'perfil_asesor.apps.PerfilAsesorConfig',
     'comision.apps.ComisionConfig',
     'asesores.apps.AsesoresConfig',
+    'desicion.apps.DesicionConfig',
 ]
 
 MIDDLEWARE = [

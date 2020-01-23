@@ -11,7 +11,7 @@ class AsesoresDbAdmin(admin.ModelAdmin):
     list_display = ('cod_asesor', 'nombre', 'apellido', 'direccion', 'ciudad', 'celular', 't_asesor', 'mail', 'perfil')
     radio_fields = {'genero': admin.HORIZONTAL}
     readonly_fields = ("fecha", "fecha_s") 
-    #list_filter = ('cod_asesor', 'nombre')
+    list_filter = ('cod_asesor', 'nombre', 'perfil')
     # search_fields = [
     #     'cod_asesor',
     #     'nombre',
