@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'comision.apps.ComisionConfig',
     'asesores.apps.AsesoresConfig',
     'desicion.apps.DesicionConfig',
+    
+    # App Lista autocompletar
+    'admin_auto_filters', 
 ]
 
 MIDDLEWARE = [
