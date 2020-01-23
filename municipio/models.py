@@ -21,5 +21,6 @@ class Municipio(models.Model):
         verbose_name='Municipio'
 
     def __str__(self):
-        return self.municipio + ' - ' + self.departamento
+        #return self.municipio + ' - ' + self.departamento
+        return self.municipio 
 
