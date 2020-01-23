@@ -27,19 +27,22 @@ class AsesoresDb(models.Model):
     comision = models.ForeignKey(Comisiones, db_column='comision', blank=True, null=True, on_delete=models.PROTECT, verbose_name='Comision')
     cedula = models.CharField(max_length=15, blank=True, null=True, verbose_name='Número de Cedula')
     c_cedula = models.CharField(max_length=150, blank=True, null=True, verbose_name='Copia de Cedula')
-    fecha = models.DateField(auto_now_add=True, blank=True, null=True, verbose_name='Fecha de Registro')
-    fecha_s = models.DateField(auto_now=True, blank=True, null=True, verbose_name='Fecha de Actualización')
+    fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Fecha de Registro')
+    fecha_s = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name='Fecha de Actualización')
     perfil = models.ForeignKey(Perfilasesor, db_column='perfil', blank=True, null=True, on_delete=models.PROTECT, verbose_name='Perfil del Asesor')
     fechanacimiento = models.DateField(db_column='fechaNacimiento', blank=True, null=True, verbose_name='fecha de Nacimiento')  # Field name made lowercase.
     fechaexpedicion = models.DateField(db_column='fechaExpedicion', blank=True, null=True, verbose_name='Fecha de Expedición')  # Field name made lowercase.
     ciudadexpedicion = models.ForeignKey(Municipio, db_column='ciudadExpedicion', blank=True, null=True, on_delete=models.PROTECT, verbose_name='Ciudad de Expedición')  # Field name made lowercase.
     genero = models.ForeignKey(Genero, on_delete=models.PROTECT, db_column='genero')
+    cod_ciudad = models.CharField(max_length=15, blank=True, null=True)
+    departamento = models.CharField(max_length=18, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'asesores_db'
         verbose_name= 'Asesor/Referenciador'
         verbose_name_plural ='Asesores/Referenciadores'
+        ordering = ["cod_asesor"]
 
     def __str__(self):
         return self.nombre + ' ' + self.apellido

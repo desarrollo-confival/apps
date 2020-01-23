@@ -3,5 +3,5 @@
 local = 'loclahost'
 database = 'confival'
 user = 'root'
-password = ''
+password = '12345'
 default-character-set = utf8
