@@ -40,26 +40,26 @@ class DbAbogadosAdmin(admin.ModelAdmin):
         'fecha_creacion',
     ]
     
-    # fieldsets = (
-    #     ('Datos Básicos', {
-    #         'fields': ('nombre', 'apellido', 'cedula', 'fechanacimiento', 'fechaexpedicion', 'ciudadexpedicion', 'genero', 'perfil')
-    #     }),
+    fieldsets = (
+        ('Datos Básicos', {
+            'fields': ('nombres', 'apellidos', 'cedula', 'fecha_nacimiento', 'fechaexpedicion', 'ciudadexpedicion', 'genero', 'perfil', 'tarjeta_p', 'empresa')
+        }),
 
-    #     ('Contacto', {
-    #         'fields': ('celular', 'mail', 't_asesor')
-    #     }),
+        ('Contacto', {
+            'fields': ('celular', 'celular1', 'celular2', 'fijo', 'fijo1', 'fijo2', 'fax', 'e_mail1', 'e_mail2', 'contacto')
+        }),
 
-    #     ('Localización', {
-    #         'fields': ('direccion', 'ciudad', 'direccion2', 'ciudad2')
-    #     }),
+        ('Localización', {
+            'fields': ('direccion', 'ciudad', 'ciudadnombre', 'departamento', 'direccion2', 'ciudad2')
+        }),
 
-    #     ('Información Adicional', {
-    #         'fields': ('comision', 'c_cedula', 'fecha', 'fecha_s')
-    #     }),
-    # )
+        ('Información Adicional', {
+            'fields': ('actualizacion', 'observaciones')
+        }),
+    )
 
-    readonly_fields = ["fecha_actualizacion"]
-    radio_fields = {'genero': admin.HORIZONTAL, 'contacto': admin.HORIZONTAL}
+    readonly_fields = ['fecha_creacion', 'fecha_actualizacion']
+    radio_fields = {'genero': admin.HORIZONTAL, 'contacto': admin.HORIZONTAL, 'perfil': admin.HORIZONTAL}
     
 
 admin.site.register(DbAbogados, DbAbogadosAdmin)

@@ -15,3 +15,6 @@ class TipoSeguimiento(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_seguimiento'
+    
+    def __str__(self):
+        return self.seguimiento
