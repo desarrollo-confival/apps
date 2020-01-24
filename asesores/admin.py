@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import AsesoresDb
 from genero.admin import GeneroFilter
 from perfil_asesor.admin import PerfilAsesorFilter
-
+from municipio.models import Municipio
+#from .forms import AsesoresForm
 
 # Register your models here.
 # ==> para personalizar el filtro - sujeto a revisión
@@ -11,6 +12,7 @@ from perfil_asesor.admin import PerfilAsesorFilter
 #=> PERSONALIZANDO ASESORESDB
 
 class AsesoresDbAdmin(admin.ModelAdmin):
+    #form = AsesoresForm
     list_display = ('cod_asesor', 'nombre', 'apellido', 'direccion', 'ciudad', 'celular', 't_asesor', 'mail', 'perfil')
     radio_fields = {
         'genero': admin.HORIZONTAL,
