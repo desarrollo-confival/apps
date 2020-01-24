@@ -3,7 +3,7 @@ from .models import AsesoresDb
 from genero.admin import GeneroFilter
 from perfil_asesor.admin import PerfilAsesorFilter
 from municipio.models import Municipio
-#from .forms import AsesoresForm
+from .forms import AsesoresForm
 
 # Register your models here.
 # ==> para personalizar el filtro - sujeto a revisión
@@ -12,7 +12,7 @@ from municipio.models import Municipio
 #=> PERSONALIZANDO ASESORESDB
 
 class AsesoresDbAdmin(admin.ModelAdmin):
-    #form = AsesoresForm
+    form = AsesoresForm
     list_display = ('cod_asesor', 'nombre', 'apellido', 'direccion', 'ciudad', 'celular', 't_asesor', 'mail', 'perfil')
     radio_fields = {
         'genero': admin.HORIZONTAL,
@@ -66,6 +66,14 @@ class AsesoresDbAdmin(admin.ModelAdmin):
             'fields': ('comision', 'c_cedula', 'fecha', 'fecha_s')
         }),
     )
+
+    def save_model(self, request, obj, form, changue):
+        if not obj.ciudad.codigo:
+            obj.ciudad = request.Municipio.municipio
+        ojb.cod_ciudad = request.Municipio.codigo
+        ojb.departamento = request.Municipio.departamento
+        obj.save()
+
 
     # esto es para el debug de error de libreria autocomplete list filter
     class Media:

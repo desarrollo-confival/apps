@@ -15,5 +15,6 @@ class MunicipioAdmin(admin.ModelAdmin):
         'departamento',
         'municipio',
     ]
+    ordering = ['codigo']
 
 admin.site.register(Municipio, MunicipioAdmin)
