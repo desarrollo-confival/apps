@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'asesores.apps.AsesoresConfig',
     'desicion.apps.DesicionConfig',
     'abogados.apps.AbogadosConfig',
+    'tipo_seguimiento',
+    'subitemseguimiento',
     
     # App Lista autocompletar filtro en admin
     'admin_auto_filters', 
