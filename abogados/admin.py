@@ -1,11 +1,20 @@
 from django.contrib import admin
 from .models import DbAbogados
+from perfil.admin import PerfilFilter
+from municipio.admin import MunicipioFilter
+from genero.admin import GeneroFilter 
 
 #===========================================================================================================
 #=> PERSONALIZANDO ABOGADOS
 
 class DbAbogadosAdmin(admin.ModelAdmin):
-    list_display = ('codigo', 'nombres', 'apellidos', 'cedula', 'tarjeta_p', 'fecha_nacimiento', 'direccion', 'ciudadnombre', 'departamento', 'fijo', 'celular', 'e_mail1')   
+    list_display = ('codigo', 'nombres', 'apellidos', 'cedula', 'genero','tarjeta_p', 'fecha_nacimiento', 'direccion', 'ciudadnombre', 'departamento', 'fijo', 'celular', 'e_mail1')   
+    list_filter = [PerfilFilter, MunicipioFilter, GeneroFilter]
+    autocomplete_fields = [
+        'ciudad',
+        'ciudad2',
+        'ciudadexpedicion',        
+    ]
     search_fields = [
         'codigo',
         'nombres',
@@ -14,12 +23,12 @@ class DbAbogadosAdmin(admin.ModelAdmin):
         'tarjeta_p',
         'fecha_nacimiento',
         'direccion',
-        'ciudad__municipio',
+        'ciudad__municipio',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         'ciudadnombre',
         'departamento',
         'direccion2',
         'ciudad2__municipio',
-        'perfil',
+        'perfil__perfil',
         'empresa',
         'celular2',
         'celular1',
@@ -30,9 +39,9 @@ class DbAbogadosAdmin(admin.ModelAdmin):
         'fax',
         'e_mail1',
         'e_mail2',
-        'contacto',
+        'contacto__contacto',
         'fecha_actualizacion',
-        'actualizacion',
+        'actualizacion__cod_asesor',
         'observaciones',       
         'fechaexpedicion',
         'ciudadexpedicion__municipio',
@@ -54,12 +63,15 @@ class DbAbogadosAdmin(admin.ModelAdmin):
         }),
 
         ('Información Adicional', {
-            'fields': ('actualizacion', 'observaciones')
+            'fields': ('actualizacion', 'observaciones', 'fecha_creacion', 'fecha_actualizacion')
         }),
     )
 
     readonly_fields = ['fecha_creacion', 'fecha_actualizacion']
     radio_fields = {'genero': admin.HORIZONTAL, 'contacto': admin.HORIZONTAL, 'perfil': admin.HORIZONTAL}
     
+    # esto es para el debug de error de libreria autocomplete list filter
+    class Media:
+        pass
 
 admin.site.register(DbAbogados, DbAbogadosAdmin)
