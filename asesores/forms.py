@@ -8,6 +8,7 @@ class AsesoresForm(forms.ModelForm):
         fields = "__all__" 
     
     def clean_ciudad(self):
+        
         if not self.cleaned_data['ciudad']:
             return Municipio('ciudad')
         return self.cleaned_data['ciudad']
