@@ -51,8 +51,9 @@ INSTALLED_APPS = [
     'comision.apps.ComisionConfig',
     'asesores.apps.AsesoresConfig',
     'desicion.apps.DesicionConfig',
+    'abogados.apps.AbogadosConfig',
     
-    # App Lista autocompletar
+    # App Lista autocompletar filtro en admin
     'admin_auto_filters', 
 ]
 

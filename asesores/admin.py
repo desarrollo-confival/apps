@@ -1,7 +1,8 @@
 from django.contrib import admin
 from .models import AsesoresDb
+from genero.admin import GeneroFilter
 from perfil_asesor.admin import PerfilAsesorFilter
-from admin_auto_filters.filters import AutocompleteFilter
+
 
 # Register your models here.
 # ==> para personalizar el filtro - sujeto a revisión
@@ -18,7 +19,7 @@ class AsesoresDbAdmin(admin.ModelAdmin):
     }
     readonly_fields = ("fecha", "fecha_s") 
     #list_filter = ('cod_asesor', 'nombre', 'perfil')
-    list_filter = [PerfilAsesorFilter, 'cod_asesor']
+    list_filter = [PerfilAsesorFilter, GeneroFilter]
     autocomplete_fields = [
         'ciudadexpedicion',
         'ciudad',
