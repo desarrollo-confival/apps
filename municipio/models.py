@@ -22,5 +22,5 @@ class Municipio(models.Model):
 
     def __str__(self):
         #return self.municipio + ' - ' + self.departamento
-        return self.municipio 
+        return self.municipio
 

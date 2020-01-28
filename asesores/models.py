@@ -12,6 +12,8 @@ from municipio.models import Municipio
 from comision.models import Comisiones
 from perfil_asesor.models import Perfilasesor
 
+from django.db.models import F
+
 
 class AsesoresDb(models.Model):
     cod_asesor = models.AutoField(primary_key=True, verbose_name='Codigo')
@@ -45,4 +47,25 @@ class AsesoresDb(models.Model):
         ordering = ["cod_asesor"]
 
     def __str__(self):
-        return self.nombre + ' ' + self.apellido
+        return self.nombre #+ ' ' + self.apellido
+
+    def clean(self):
+        # implementacion autollenado cod_ciudad
+        if not self.cod_ciudad:
+            self.cod_ciudad = Municipio.objects.filter(municipio = self.ciudad)
+            print(self.cod_ciudad)
+        super(AsesoresDb, self).clean()
+        
+    def save(self):
+        # implementacion autollenado cod_ciudad
+        if not self.cod_ciudad:
+            self.cod_ciudad = Municipio.objects.filter(municipio = self.ciudad)
+            print(self.cod_ciudad)
+        super(AsesoresDb, self).save()        
+    
+    # def clean1(self):
+    #     # implementacion autollenado departamento
+    #     if not self.departamento:
+    #         self.departamentop = self.ciudad
+    #     super(AsesoresDb, self).clean1()
+   
