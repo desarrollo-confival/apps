@@ -15,9 +15,10 @@ Including another URLconf
 """
 
 from django.urls import path
+from asesores.views import MunicipioAPI
 from . import views
 
 urlpatterns = [
-    path('', views.asesores),
-
+    path('api-municipio/', MunicipioAPI.as_view(), name="api-municipio"),
+    path('', views.asesores, name="asesores"),
 ]

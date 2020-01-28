@@ -77,7 +77,7 @@ class AsesoresDbAdmin(admin.ModelAdmin):
 
     # esto es para el debug de error de libreria autocomplete list filter
     class Media:
-        pass
-        
+        pass    
+
 admin.site.register(AsesoresDb, AsesoresDbAdmin)
 

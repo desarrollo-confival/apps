@@ -57,6 +57,9 @@ INSTALLED_APPS = [
     
     # App Lista autocompletar filtro en admin
     'admin_auto_filters', 
+
+    # lib django rest
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
