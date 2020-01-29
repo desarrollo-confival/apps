@@ -48,20 +48,25 @@ class AsesoresDb(models.Model):
 
     def __str__(self):
         return self.nombre #+ ' ' + self.apellido
-
-    def clean(self):
-        # implementacion autollenado cod_ciudad
-        if not self.cod_ciudad:
-            self.cod_ciudad = Municipio.objects.filter(municipio = self.ciudad)
-            print(self.cod_ciudad)
-        super(AsesoresDb, self).clean()
         
-    def save(self):
-        # implementacion autollenado cod_ciudad
-        if not self.cod_ciudad:
-            self.cod_ciudad = Municipio.objects.filter(municipio = self.ciudad)
-            print(self.cod_ciudad)
-        super(AsesoresDb, self).save()        
+    def save(self, *args, **kwargs):
+        self.cod_ciudad = self.ciudad.codigo_dane
+        self.departamento = self.ciudad.departamento
+        super(AsesoresDb, self).save(*args, **kwargs)
+
+    # def clean(self):
+    #     # implementacion autollenado cod_ciudad
+    #     if not self.cod_ciudad:
+    #         self.cod_ciudad = Municipio.objects.filter(municipio = self.ciudad)
+    #         print(self.cod_ciudad)
+    #     super(AsesoresDb, self).clean()
+        
+    # def save(self):
+    #     # implementacion autollenado cod_ciudad
+    #     if not self.cod_ciudad:
+    #         self.cod_ciudad = Municipio.objects.filter(municipio = self.ciudad)
+    #         print(self.cod_ciudad)
+    #     super(AsesoresDb, self).save()        
     
     # def clean1(self):
     #     # implementacion autollenado departamento

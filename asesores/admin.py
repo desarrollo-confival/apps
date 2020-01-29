@@ -12,7 +12,7 @@ from .forms import AsesoresForm
 #=> PERSONALIZANDO ASESORESDB
 
 class AsesoresDbAdmin(admin.ModelAdmin):
-    form = AsesoresForm
+    #form = AsesoresForm
     list_display = ('cod_asesor', 'nombre', 'apellido', 'direccion', 'ciudad', 'celular', 't_asesor', 'mail', 'perfil')
     radio_fields = {
         'genero': admin.HORIZONTAL,
@@ -74,11 +74,11 @@ class AsesoresDbAdmin(admin.ModelAdmin):
     #     # ojb.departamento = request.Municipio.departamento
     #     # obj.save()
 
-    def save_model(self, request, obj, form, changue):
-        """ Autofill in ciudad when blank on save models. """
-        obj.cod_ciudad = request.user
-        #obj.departamento = request.user
-        obj.save()
+    # def save_model(self, request, obj, form, changue):
+    #     """ Autofill in ciudad when blank on save models. """
+    #     obj.cod_ciudad = request.user
+    #     #obj.departamento = request.user
+    #     obj.save()
     # EndDef
 
     # def save_formset(self, request, form, formset, change):
@@ -95,6 +95,9 @@ class AsesoresDbAdmin(admin.ModelAdmin):
     # esto es para el debug de error de libreria autocomplete list filter
     class Media:
         pass    
+
+    def make_deparatamento(AsesoresDbAdmin, request, queryset):
+        queryset.update(departamento, cod_ciudad)
 
 admin.site.register(AsesoresDb, AsesoresDbAdmin)
 
