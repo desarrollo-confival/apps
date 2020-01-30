@@ -15,3 +15,9 @@ class Perfiljuridico(models.Model):
     class Meta:
         managed = False
         db_table = 'perfiljuridico'
+        verbose_name= 'Perfil Jurídico'
+        verbose_name_plural ='Perfil Jurídicos'
+        ordering = ["codigo"]
+
+    def __str__(self):
+        return self.perfil
