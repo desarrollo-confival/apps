@@ -25,6 +25,7 @@ class AsesoresDbAdmin(admin.ModelAdmin):
     autocomplete_fields = [
         'ciudadexpedicion',
         'ciudad',
+        'ciudad2'
     ]
     search_fields = [
         'cod_asesor',
@@ -59,7 +60,7 @@ class AsesoresDbAdmin(admin.ModelAdmin):
         }),
 
         ('Localización', {
-            'fields': ('direccion', 'ciudad', 'direccion2', 'cod_ciudad', 'departamento')
+            'fields': ('direccion', 'ciudad', 'cod_ciudad', 'departamento', 'direccion2', 'ciudad2')
         }),
 
         ('Información Adicional', {
@@ -71,7 +72,7 @@ class AsesoresDbAdmin(admin.ModelAdmin):
     class Media:
         pass    
 
-    def make_deparatamento(AsesoresDbAdmin, request, queryset):
+    def actualizar_campos(AsesoresDbAdmin, request, queryset):
         queryset.update(departamento, cod_ciudad)
 
 admin.site.register(AsesoresDb, AsesoresDbAdmin)

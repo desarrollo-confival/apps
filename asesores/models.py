@@ -18,7 +18,7 @@ class AsesoresDb(models.Model):
     apellido = models.CharField(max_length=20, blank=True, null=True, verbose_name='Apellidos Asesor')
     direccion = models.CharField(max_length=154, blank=True, null=True, verbose_name='Dirección')
     ciudad = models.ForeignKey(Municipio, db_column='ciudad', blank=True, null=True, on_delete=models.PROTECT, verbose_name='Ciudad', related_name='AsesoresDb.ciudad+')
-    direccion2 = models.CharField(max_length=154, blank=True, null=True, verbose_name='Dirrección')
+    direccion2 = models.CharField(max_length=154, blank=True, null=True, verbose_name='Dirección 2')
     ciudad2 = models.ForeignKey(Municipio, db_column='ciudad2', blank=True, null=True, on_delete=models.PROTECT, verbose_name='Ciudad 2', related_name='AsesoresDb.ciudad2+')
     celular = models.CharField(max_length=15, blank=True, null=True, verbose_name='Número de Celular')
     mail = models.CharField(max_length=50, blank=True, null=True, verbose_name='E-Mail')

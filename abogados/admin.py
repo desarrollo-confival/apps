@@ -74,7 +74,7 @@ class DbAbogadosAdmin(admin.ModelAdmin):
     class Media:
         pass
 
-    def make_deparatamento(DbAbogados, request, queryset):
+    def actualizar_campos(DbAbogados, request, queryset):
         queryset.update(ciudadnombre, departamento)
 
 admin.site.register(DbAbogados, DbAbogadosAdmin)

@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'abogados.apps.AbogadosConfig',
     'tipo_seguimiento',
     'subitemseguimiento',
+    'juridicos',
+    'perfiljuridico',
     
     # App Lista autocompletar filtro en admin
     'admin_auto_filters', 
