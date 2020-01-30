@@ -51,11 +51,11 @@ class DbAbogadosAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Datos Básicos', {
-            'fields': ('nombres', 'apellidos', 'cedula', 'fecha_nacimiento', 'fechaexpedicion', 'ciudadexpedicion', 'genero', 'perfil', 'tarjeta_p', 'empresa')
+            'fields': ('codigo','nombres', 'apellidos', 'cedula', 'fecha_nacimiento', 'fechaexpedicion', 'ciudadexpedicion', 'genero', 'perfil', 'tarjeta_p')
         }),
 
         ('Contacto', {
-            'fields': ('celular', 'celular1', 'celular2', 'fijo', 'fijo1', 'fijo2', 'fax', 'e_mail1', 'e_mail2', 'contacto')
+            'fields': ('celular', 'celular1', 'celular2', 'fijo', 'fijo1', 'fijo2', 'fax', 'e_mail1', 'e_mail2')
         }),
 
         ('Localización', {
@@ -63,15 +63,18 @@ class DbAbogadosAdmin(admin.ModelAdmin):
         }),
 
         ('Información Adicional', {
-            'fields': ('actualizacion', 'observaciones', 'fecha_creacion', 'fecha_actualizacion')
+            'fields': ('empresa', 'actualizacion', 'observaciones', 'contacto','fecha_creacion', 'fecha_actualizacion')
         }),
     )
 
-    readonly_fields = ['fecha_creacion', 'fecha_actualizacion']
+    readonly_fields = ['codigo', 'fecha_creacion', 'fecha_actualizacion', 'ciudadnombre', 'departamento']
     radio_fields = {'genero': admin.HORIZONTAL, 'contacto': admin.HORIZONTAL, 'perfil': admin.HORIZONTAL}
     
     # esto es para el debug de error de libreria autocomplete list filter
     class Media:
         pass
+
+    def make_deparatamento(DbAbogados, request, queryset):
+        queryset.update(ciudadnombre, departamento)
 
 admin.site.register(DbAbogados, DbAbogadosAdmin)

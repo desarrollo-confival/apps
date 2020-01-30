@@ -15,6 +15,8 @@ class Desicion(models.Model):
     class Meta:
         managed = False
         db_table = 'desicion'
+        verbose_name='Desicion'
+        verbose_name_plural='Desiciones'
     
     def __str__(self):
         return self.desicion

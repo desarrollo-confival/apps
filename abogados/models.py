@@ -38,7 +38,7 @@ class DbAbogados(models.Model):
     e_mail2 = models.CharField(max_length=67, blank=True, null=True)
     contacto = models.ForeignKey(OrigenContacto, db_column='contacto', blank=True, null=True, on_delete=models.PROTECT)
     fecha_actualizacion = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name='Fecha de Actualización') # => se cambio el tipo de dato DateTimeField
-    actualizacion = models.ForeignKey(AsesoresDb, db_column='actualizacion', blank=True, null=True, on_delete=models.PROTECT)
+    actualizacion = models.ForeignKey(AsesoresDb, db_column='actualizacion', blank=True, null=True, on_delete=models.PROTECT, verbose_name='Nombre del asesor')
     observaciones = models.CharField(max_length=150, blank=True, null=True)
     fechaexpedicion = models.DateField(db_column='fechaExpedicion', blank=True, null=True)  # Field name made lowercase.
     ciudadexpedicion = models.ForeignKey(Municipio, db_column='ciudadExpedicion', blank=True, null=True, on_delete=models.PROTECT)  # Field name made lowercase.
@@ -53,4 +53,11 @@ class DbAbogados(models.Model):
         ordering = ["codigo"]
 
     def __str__(self):
-        return self.nombres +" "+ self.apellidos
+        #return self.nombres +" "+ self.apellidos
+        return '%s - %s' % (self.nombres, self.apellidos)
+    
+    def save(self, *args, **kwargs):
+        self.ciudadnombre = self.ciudad.municipio
+        self.departamento = self.ciudad.departamento
+        super(DbAbogados, self).save(*args, **kwargs)
+

@@ -255,3 +255,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 python manage.py inspectdb municipio db_abogados perfil genero asesores_db comisiones perfilasesor pagador sentencia_conciliacion reg_sentencia perfil_abogadosentencia abogadosentencia antecedentesabd juzgados_tribunales tipo_documento clase_docuemento > archivo/models.py
 
 ```
+
+30. LIBREIAS
+
+```bash
+https://pypi.org/project/django-autocompletefilter/
+https://pypi.org/project/django-admin-autocomplete-filter/ => ESTA SE PROBO PARA EL APLICATIVO ASESORES Y ABOGADOS
+
+```

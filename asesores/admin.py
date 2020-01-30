@@ -19,7 +19,7 @@ class AsesoresDbAdmin(admin.ModelAdmin):
         'perfil': admin.HORIZONTAL,
         'comision': admin.HORIZONTAL,
     }
-    readonly_fields = ("fecha", "fecha_s") 
+    readonly_fields = ("fecha", "fecha_s", "cod_ciudad", "departamento") 
     #list_filter = ('cod_asesor', 'nombre', 'perfil')
     list_filter = [PerfilAsesorFilter, GeneroFilter]
     autocomplete_fields = [
@@ -66,32 +66,7 @@ class AsesoresDbAdmin(admin.ModelAdmin):
             'fields': ('comision', 'c_cedula', 'fecha', 'fecha_s')
         }),
     )
-
-    # def save_model(self, request, obj, form, changue):
-    #     # if not obj.ciudad.codigo:
-    #     #     obj.ciudad = request.Municipio.municipio
-    #     # ojb.cod_ciudad = request.Municipio.codigo
-    #     # ojb.departamento = request.Municipio.departamento
-    #     # obj.save()
-
-    # def save_model(self, request, obj, form, changue):
-    #     """ Autofill in ciudad when blank on save models. """
-    #     obj.cod_ciudad = request.user
-    #     #obj.departamento = request.user
-    #     obj.save()
-    # EndDef
-
-    # def save_formset(self, request, form, formset, change):
-    #     """ Autofill in ciudad when blank on save formsets. """
-    #     instances = formset.save(commit=False)
-    #     for instance in instances:
-    #         instance.cod_ciudad = request.cod_ciudad
-    #         instance.save()
-    #     formset.save_m2m()
-    # EndDef
-# EndClass
-
-
+    
     # esto es para el debug de error de libreria autocomplete list filter
     class Media:
         pass    
