@@ -28,7 +28,6 @@ urlpatterns = [
     #app perfil cliente
     path('perfil/', include('perfil.urls')),
 
-
     #app origen contacto 
     path('contacto/', include('origen_contacto.urls')),
 
@@ -49,5 +48,8 @@ urlpatterns = [
 
     #app registro abogados
     path('abogados/', include('abogados.urls')),
+
+    #app agenda
+    path('agenda/', include('agenda.urls')),
 
 ]
