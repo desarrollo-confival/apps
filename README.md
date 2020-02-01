@@ -200,16 +200,179 @@ from .models import DbAbogados
 
 admin.site.register(DbAbogados)
 ```
-26. Configurar archivo models.py de app registro_abogados registro_asesores seguimiento en inspectdb con las tablas necesarias
+
+## inpecionar tablas de bases de datos para aplicativos individuales
+
+26. Configurar archivo models.py de app abogados, asesores en inspectdb con las tablas necesarias
 
 ```python
-python manage.py inspectdb municipio db_abogados perfil genero asesores_db comisiones origen_contacto perfilasesor > registro_abogados/models.py
-python manage.py inspectdb asesores_db municipio perfilasesor genero comisiones > registro_asesores/models.py
-python manage.py inspectdb db_abogados perfil seguimiento tipo_seguimiento subitemseguimiento asesores_db municipio comisiones genero > seguimiento/models.py
+python manage.py inspectdb db_abogados  > abogados/models.py
+python manage.py inspectdb asesores_db  > asesores/models.py
+
+```
+## Librerias utilizadas
+
+27. Libreria para filtro en administrador de aplicativos
+
+A continuacion se presentan las librerias para filtro
+
+```bash
+https://pypi.org/project/django-autocompletefilter/
+https://pypi.org/project/django-admin-autocomplete-filter/ => ESTA SE PROBO PARA EL APLICATIVO ASESORES Y ABOGADOS
+
+pip install django-admin-autocomplete-filter
+
+```
+Se pretende mostrar la funcionalidad de la libreria en juridico lo cual queremos filtrar
+al personal juridico de acuerdo a su perfil y para lograr la funcionalidad
+se necesita del modelo perfiljurido. Por lo tanto se tienen 
+siguientes clases
+
+juridico
+```python
+
+class Juridicos(models.Model):
+    codigo = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=20)
+    apellido = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=154, blank=True, null=True)
+    ciudad = models.ForeignKey(Municipio, on_delete=models.PROTECT, db_column='ciudad', blank=True, null=True)
+    mail = models.CharField(max_length=50, blank=True, null=True)
+    fijo = models.CharField(max_length=15, blank=True, null=True)
+    cedula = models.CharField(max_length=15, blank=True, null=True)
+    fecha = models.DateField(blank=True, null=True)
+    tarjetaprofesional = models.CharField(db_column='tarjetaProfesional', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    fecha_s = models.DateField(blank=True, null=True)
+    perfil = models.ForeignKey(Perfiljuridico, on_delete=models.PROTECT, db_column='perfil', blank=True, null=True)
+    genero = models.ForeignKey(Genero, on_delete=models.PROTECT, db_column='genero', blank=True, null=True)
+    login = models.CharField(max_length=256)
+
+    class Meta:
+        managed = True
+        db_table = 'juridicos'
+        verbose_name= 'Jurídico'
+        verbose_name_plural ='Jurídicos'
+        ordering = ["codigo"]
+    
+    def __str__(self):
+        return '%s - %s' %(self.nombre, self.apellido)
+
+```
+perfil juridico
+
+```python
+class Perfilasesor(models.Model):
+    codigo = models.AutoField(primary_key=True,verbose_name='Codigo')
+    perfil = models.CharField(max_length=50, verbose_name='Perfil Asesor')
+
+    class Meta:
+        managed = False
+        db_table = 'perfilasesor'
+        verbose_name= 'Perfil del Asesores'
+        verbose_name_plural='Perfiles de Asesores'
+
+    def __str__(self):
+        return self.perfil
 
 ```
 
-27. Configuraciones de Sesión
+a continuacion realizamos las configuraciones en admin.py de perfiljuridico de la siguiente manera
+
+```python
+from django.contrib import admin
+from .models import Perfiljuridico
+from admin_auto_filters.filters import AutocompleteFilter
+
+# Register your models here.
+
+class PerfiljuridicoFilter(AutocompleteFilter):
+    title = 'Perfil Juridico' # display title
+    field_name = 'perfil' # name of the foreign key field (de modelo juridico)
+
+class PerfiljuridicoAdmin(admin.ModelAdmin):
+    search_fields = [
+        'codigo',
+        'perfil',
+    ]
+
+admin.site.register(Perfiljuridico, PerfiljuridicoAdmin)
+```
+Finalmente en nuestro admin.py de juridico invocamos a la clase PerfiljuridicoFilter para pasarle en nuestra varialble list_filter.
+
+si se realiza esta configuracion del filter normal de admin django funciona pero mostrando todos los filtros en ese modelo lo cual no es eficiente para fitrar modelos con grandes registros
+
+```python
+from django.contrib import admin
+from .models import Juridicos
+
+# Register your models here.
+class JuridicosAdmin(admin.ModelAdmin):
+   
+    list_display = ('codigo', 'nombre', 'apellido', 'direccion', 'ciudad', 'mail', 'cedula', 'tarjetaprofesional', 'perfil')
+    list_filter = ['perfil', 'codigo'] #=> configuracion normal
+    radio_fields = {
+        'genero': admin.HORIZONTAL,
+        'perfil': admin.HORIZONTAL,        
+    }
+    readonly_fields = ("fecha", "fecha_s", "codigo")
+
+    autocomplete_fields = [        
+        'ciudad',        
+    ]
+admin.site.register(Juridicos, JuridicosAdmin)
+
+```
+
+Configuracion con libreria de filtrado
+
+```python
+from django.contrib import admin
+from .models import Juridicos
+from perfiljuridico.admin import PerfiljuridicoFilter
+
+# Register your models here.
+class JuridicosAdmin(admin.ModelAdmin):
+   
+    list_display = ('codigo', 'nombre', 'apellido', 'direccion', 'ciudad', 'mail', 'cedula', 'tarjetaprofesional', 'perfil')
+    list_filter = [PerfiljuridicoFilter] #=> configuracion libreria
+    radio_fields = {
+        'genero': admin.HORIZONTAL,
+        'perfil': admin.HORIZONTAL,        
+    }
+    readonly_fields = ("fecha", "fecha_s", "codigo")
+
+    autocomplete_fields = [        
+        'ciudad',        
+    ]
+    
+    # esto es para el bug de error del propoetario de libreria
+    class Media:
+        pass 
+
+admin.site.register(Juridicos, JuridicosAdmin)
+
+```
+
+## Llenado de campos
+
+28. Guardando autollenado de campos
+
+en el modelo asesores se realizo la funcion save
+```python
+python manage.py inspectdb db_abogados  > abogados/models.py
+python manage.py inspectdb asesores_db  > asesores/models.py
+
+```
+en admin asesores se crea la funcion para actualizar campos
+
+```python
+def actualizar_campos(AsesoresDbAdmin, request, queryset):
+    queryset.update(departamento, cod_ciudad)
+
+```
+
+
+<!-- 27. Configuraciones de Sesión
 
 ```bash
 configuracion establecida de sesion en settings.py INSTALLED_APPS y MIDDLEWARE
@@ -254,12 +417,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ```bash
 python manage.py inspectdb municipio db_abogados perfil genero asesores_db comisiones perfilasesor pagador sentencia_conciliacion reg_sentencia perfil_abogadosentencia abogadosentencia antecedentesabd juzgados_tribunales tipo_documento clase_docuemento > archivo/models.py
 
-```
-
-30. LIBREIAS
-
-```bash
-https://pypi.org/project/django-autocompletefilter/
-https://pypi.org/project/django-admin-autocomplete-filter/ => ESTA SE PROBO PARA EL APLICATIVO ASESORES Y ABOGADOS
-
-```
+``` -->
