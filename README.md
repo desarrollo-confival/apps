@@ -358,9 +358,12 @@ admin.site.register(Juridicos, JuridicosAdmin)
 28. Guardando autollenado de campos
 
 en el modelo asesores se realizo la funcion save
+
 ```python
-python manage.py inspectdb db_abogados  > abogados/models.py
-python manage.py inspectdb asesores_db  > asesores/models.py
+def save(self, *args, **kwargs):
+    self.cod_ciudad = self.ciudad.codigo_dane
+    self.departamento = self.ciudad.departamento
+    super(AsesoresDb, self).save(*args, **kwargs)
 
 ```
 en admin asesores se crea la funcion para actualizar campos
