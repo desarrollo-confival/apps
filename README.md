@@ -373,7 +373,19 @@ def actualizar_campos(AsesoresDbAdmin, request, queryset):
     queryset.update(departamento, cod_ciudad)
 
 ```
+## DESPLIEGUE APACHE XAAMP
 
+29. prueba despliegue
+
+WSGIScriptAlias / /path/to/crm.com/crm/wsgi.py
+WSGIPythonHome /C:/Anaconda3/envs/confival
+WSGIPythonPath /path/to/crm.com
+
+<Directory /path/to/crm.com/crm>
+<Files wsgi.py>
+Require all granted
+</Files>
+</Directory>
 
 <!-- 27. Configuraciones de Sesión
 
